@@ -1,27 +1,25 @@
-import { useState } from "react"
-
 import './styles.css'
+import { GameCard } from "../MemoryGame/map-images"
 
 export type CardProps = {
-  selected: boolean
-  image: string
+  gameCard: GameCard
+  selectCard: (card: GameCard) => void
 }
 
-export function Card({image, selected}: CardProps) {
-  const [isSelected, toggleSelect] = useState(selected)
+export function Card({gameCard, selectCard}: CardProps) {
+  const { isFound, image, isSelected } = gameCard
 
-  if (!isSelected) {
+  if (!isSelected && !isFound) {
     return (
       <div
         className="image-placeholder"
-        onClick={() => toggleSelect((selectState) => !selectState)}
+        onClick={() => selectCard(gameCard)}
       />
     )
   }
 
   return (
     <div
-      onClick={() => toggleSelect((selectState) => !selectState)}
       style={{backgroundImage: `url(${image})`}}
       className="image-container"
     />
